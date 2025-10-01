@@ -1,13 +1,14 @@
-import easygui
+# import easygui
 import pandas as pd
 from datetime import datetime
 from send_email import sendEmailContent 
 from html_content import get_html_content
+
 def driver_function(excel_file):
     """Reads email addresses from an Excel file and sends emails. Stores unsent emails in 'failed_emails.xlsx'."""
     failed_records = []
     logfile = open("processlogs.log", "a"); 
-
+    template_path = "./workshops-email/template.html"
     logfile.write(f"{datetime.now()} : PROCESS STARTED\n")
     try:
         
@@ -17,10 +18,10 @@ def driver_function(excel_file):
         for _, row in all_data.iterrows():
             try:
                 recieverEmail = row['email']
-                subject = "Welcome to ACM - NUCES Karachi"
+                subject = "Welcome to ACM SkillPrep Series"
 
                 # Create a list of team members from the file data
-                htmlContent = get_html_content(row['name'], row['position'], row['team'])
+                htmlContent = get_html_content(template_path, row.to_dict())
 
                 # Send email and track failures
                 if not sendEmailContent(recieverEmail, subject, htmlContent):
@@ -53,7 +54,7 @@ def driver_function(excel_file):
             print("[!] Some emails were not sent. Check 'failed_emails.xlsx' for details.")
 
 # Run the function with user-selected Excel file
-file_name = easygui.fileopenbox()
+file_name = "./workshops-email/records.xlsx"
 if file_name:
     driver_function(file_name)
 else:
