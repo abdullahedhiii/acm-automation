@@ -13,4 +13,4 @@ def generate(name, position, team):
     html = get_image_content(name, position, team, date, img)
     imgkit.from_string(html, "./images/final.png", config=config, options=options)
 
-generate("Zain Khan", "Head", "Event Management")
+generate("Musab", "Co Head", "Automations")
