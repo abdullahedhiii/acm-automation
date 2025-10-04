@@ -14,3 +14,150 @@
 2025-10-01 14:50:11.652391 : Email sent to abdullahedhi17@gmail.com
 2025-10-01 14:53:22.197516 : PROCESS STARTED
 2025-10-01 14:53:27.037814 : Email sent to abdullahedhi17@gmail.com
+2025-10-02 23:35:15.926637 : PROCESS STARTED
+2025-10-02 23:35:16.391811 : [!] Missing column in the Excel file: 'position'
+2025-10-02 23:36:55.566275 : PROCESS STARTED
+2025-10-02 23:36:55.738539 : [!] Missing column in the Excel file: 'position'
+2025-10-02 23:37:52.491254 : PROCESS STARTED
+2025-10-02 23:37:52.685642 : [!] Missing column in the Excel file: 'position'
+2025-10-02 23:39:12.547750 : PROCESS STARTED
+2025-10-02 23:39:12.720549 : [!] Missing column in the Excel file: 'position'
+2025-10-02 23:42:30.536715 : PROCESS STARTED
+2025-10-02 23:42:32.588002 : Couldn't send email to mmak.lughat@gmail.com
+2025-10-02 23:44:30.061681 : PROCESS STARTED
+2025-10-02 23:44:36.127122 : Email sent to mmak.lughat@gmail.com
+2025-10-02 23:49:51.274815 : PROCESS STARTED
+2025-10-02 23:49:58.006150 : Email sent to mmak.lughat@gmail.com
+2025-10-02 23:52:37.318859 : PROCESS STARTED
+2025-10-02 23:52:43.534409 : Email sent to mmak.lughat@gmail.com
+2025-10-03 00:08:12.976855 : PROCESS STARTED
+2025-10-03 00:08:17.294561 : Email sent to mmak.lughat@gmail.com
+2025-10-03 18:17:42.578683 : PROCESS STARTED
+2025-10-03 18:17:55.500499 : Email sent to mmak.lughat@gmail.com
+2025-10-03 18:20:36.337228 : PROCESS STARTED
+2025-10-03 18:20:45.620786 : Email sent to mmak.lughat@gmail.com
+2025-10-03 18:33:06.604444 : PROCESS STARTED
+2025-10-03 18:33:08.094365 : [!] Error processing email for mmak.lughat@gmail.com: get_html_content() takes 2 positional arguments but 3 were given
+2025-10-03 18:34:07.685932 : PROCESS STARTED
+2025-10-03 18:34:17.978740 : Email sent to mmak.lughat@gmail.com
+2025-10-03 18:35:25.851351 : PROCESS STARTED
+2025-10-03 18:35:35.654107 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:01:26.642404 : PROCESS STARTED
+2025-10-03 19:01:53.635908 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:05:45.387574 : PROCESS STARTED
+2025-10-03 19:05:49.260948 : Couldn't send email to mmak.lughat@gmail.com
+2025-10-03 19:05:52.639951 : Couldn't send email to k224392@nu.edu.pk
+2025-10-03 19:06:54.222341 : PROCESS STARTED
+2025-10-03 19:07:18.478995 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:07:29.507367 : Email sent to k224392@nu.edu.pk
+2025-10-03 19:13:35.283619 : PROCESS STARTED
+2025-10-03 19:13:46.044012 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:16:45.768121 : PROCESS STARTED
+2025-10-03 19:17:03.032317 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:19:54.151454 : PROCESS STARTED
+2025-10-03 19:20:05.943582 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:23:14.776658 : PROCESS STARTED
+2025-10-03 19:23:33.134683 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:28:58.495911 : PROCESS STARTED
+2025-10-03 19:29:14.475642 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:30:20.788152 : PROCESS STARTED
+2025-10-03 19:30:39.074469 : PROCESS STARTED
+2025-10-03 19:30:55.584785 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:31:25.202497 : Email sent to k224626@nu.edu.pk
+2025-10-03 19:31:36.722086 : Email sent to k224392@nu.edu.pk
+2025-10-03 19:39:21.272067 : PROCESS STARTED
+2025-10-03 19:39:37.048410 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:41:12.401853 : PROCESS STARTED
+2025-10-03 19:41:31.310020 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:42:33.507763 : PROCESS STARTED
+2025-10-03 19:42:42.765652 : Email sent to mmak.lughat@gmail.com
+2025-10-03 19:42:54.556492 : Email sent to k224626@nu.edu.pk
+2025-10-03 19:43:03.817802 : Email sent to k224392@nu.edu.pk
+2025-10-03 20:06:04.438191 : PROCESS STARTED
+2025-10-03 20:06:07.532163 : Couldn't send email to mmak.lughat@gmail.com
+2025-10-03 20:06:25.498769 : PROCESS STARTED
+2025-10-03 20:06:38.922786 : Email sent to mmak.lughat@gmail.com
+2025-10-03 20:10:11.053429 : PROCESS STARTED
+2025-10-03 20:10:21.731011 : Email sent to k240528@nu.edu.pk
+2025-10-03 20:11:38.259108 : PROCESS STARTED
+2025-10-03 20:11:53.719447 : Email sent to k236031@nu.edu.pk
+2025-10-03 20:12:08.690930 : Email sent to k224575@nu.edu.pk
+2025-10-03 20:12:20.174436 : Email sent to k224581@nu.edu.pk
+2025-10-03 20:12:37.445820 : Email sent to k230068@nu.edu.pk
+2025-10-03 20:13:07.560644 : Email sent to k230859@nu.edu.pk
+2025-10-03 20:13:18.792713 : Email sent to k245582@nu.edu.pk
+2025-10-03 20:13:38.443583 : Email sent to k224250@nu.edu.pk
+2025-10-03 20:13:51.111334 : Email sent to k230041@nu.edu.pk
+2025-10-03 20:14:00.500067 : Email sent to k230724@nu.edu.pk
+2025-10-03 20:14:15.688285 : Email sent to k232007@nu.edu.pk
+2025-10-03 20:14:27.202955 : Email sent to k232046@nu.edu.pk
+2025-10-03 20:14:37.194735 : Email sent to k232071@nu.edu.pk
+2025-10-03 20:14:49.743395 : Email sent to k228723@nu.edu.pk
+2025-10-03 20:15:01.951842 : Email sent to k230630@nu.edu.pk
+2025-10-03 20:15:15.816890 : Email sent to k242001@nu.edu.pk
+2025-10-03 20:15:26.011619 : Email sent to k230525@nu.edu.pk
+2025-10-03 20:15:38.004225 : Email sent to k236037@nu.edu.pk
+2025-10-03 20:15:49.194665 : Email sent to k230763@nu.edu.pk
+2025-10-03 20:15:58.697000 : Email sent to k240515@nu.edu.pk
+2025-10-03 20:16:09.429813 : Email sent to k243100@nu.edu.pk
+2025-10-03 20:16:21.127248 : Email sent to k243113@nu.edu.pk
+2025-10-03 20:16:31.667096 : Email sent to k240821@nu.edu.pk
+2025-10-03 20:17:17.316017 : Email sent to k245570@nu.edu.pk
+2025-10-03 20:17:37.608430 : Email sent to k230644@nu.edu.pk
+2025-10-03 20:17:53.144300 : Email sent to k230836@nu.edu.pk
+2025-10-03 20:18:11.715100 : Email sent to k230758@nu.edu.pk
+2025-10-03 20:18:23.337774 : Email sent to k243021@nu.edu.pk
+2025-10-03 20:18:33.454964 : Email sent to k232040@nu.edu.pk
+2025-10-03 20:18:44.362801 : Email sent to k230715@nu.edu.pk
+2025-10-03 20:18:53.615879 : Email sent to k230781@nu.edu.pk
+2025-10-03 20:19:06.994186 : Email sent to k232059@nu.edu.pk
+2025-10-03 20:19:18.347823 : Email sent to k235509@nu.edu.pk
+2025-10-03 20:19:27.975888 : Email sent to k233043@nu.edu.pk
+2025-10-03 20:19:39.536207 : Email sent to k230581@nu.edu.pk
+2025-10-03 20:19:49.070065 : Email sent to k230665@nu.edu.pk
+2025-10-03 20:20:01.895022 : Email sent to k232058@nu.edu.pk
+2025-10-03 20:20:17.219362 : Email sent to k232055@nu.edu.pk
+2025-10-03 20:20:26.948580 : Email sent to k230563@nu.edu.pk
+2025-10-03 20:20:37.621874 : Email sent to k230872@nu.edu.pk
+2025-10-03 20:20:52.810085 : Email sent to k240706@nu.edu.pk
+2025-10-03 20:21:03.253917 : Email sent to k256540@nu.edu.pk
+2025-10-03 20:21:12.873151 : Email sent to k226001@nu.edu.pk
+2025-10-03 20:21:27.407230 : Email sent to k224040@nu.edu.pk
+2025-10-03 20:21:42.120565 : Email sent to k230928@nu.edu.pk
+2025-10-03 20:21:51.810606 : Email sent to k235009@nu.edu.pk
+2025-10-03 20:21:59.750762 : Email sent to k230589@nu.edu.pk
+2025-10-03 20:22:09.680994 : Email sent to k246122@nu.edu.pk
+2025-10-03 20:22:20.736701 : Email sent to k240779@nu.edu.pk
+2025-10-03 20:22:32.140630 : Email sent to k224186@nu.edu.pk
+2025-10-03 20:22:42.192348 : Email sent to k224557@nu.edu.pk
+2025-10-03 20:22:51.743002 : Email sent to k224096@nu.edu.pk
+2025-10-03 20:23:01.527940 : Email sent to k230842@nu.edu.pk
+2025-10-03 20:23:12.789023 : Email sent to k243026@nu.edu.pk
+2025-10-03 20:23:21.947576 : Email sent to k240857@nu.edu.pk
+2025-10-03 20:23:30.401841 : Email sent to k230056@nu.edu.pk
+2025-10-03 20:23:37.125975 : Email sent to k246089@nu.edu.pk
+2025-10-03 20:23:44.579065 : Email sent to k236017@nu.edu.pk
+2025-10-03 20:23:51.819574 : Email sent to k246015@nu.edu.pk
+2025-10-03 20:23:58.940472 : Email sent to k246092@nu.edu.pk
+2025-10-03 20:24:05.867733 : Email sent to k240769@nu.edu.pk
+2025-10-03 20:24:12.997089 : Email sent to k240994@nu.edu.pk
+2025-10-03 20:24:20.157553 : Email sent to k252019@nu.edu.pk
+2025-10-03 20:24:27.380148 : Email sent to k224392@nu.edu.pk
+2025-10-03 20:24:35.603373 : Email sent to k230560@nu.edu.pk
+2025-10-03 20:24:42.582345 : Email sent to k240528@nu.edu.pk
+2025-10-03 20:24:50.175687 : Email sent to k232012@nu.edu.pk
+2025-10-03 20:24:58.643256 : Email sent to k232042@nu.edu.pk
+2025-10-03 20:25:06.743082 : Email sent to k233044@nu.edu.pk
+2025-10-03 20:25:13.595523 : Email sent to k230548@nu.edu.pk
+2025-10-03 20:25:20.030595 : Email sent to k230522@nu.edu.pk
+2025-10-03 20:25:27.717841 : Email sent to k230729@nu.edu.pk
+2025-10-03 20:25:34.877874 : Email sent to k235523@nu.edu.pk
+2025-10-03 20:25:42.164956 : Email sent to k235514@nu.edu.pk
+2025-10-03 20:25:49.287488 : Email sent to k230703@nu.edu.pk
+2025-10-03 20:25:56.798826 : Email sent to k230837@nu.edu.pk
+2025-10-03 20:26:04.471858 : Email sent to k230691@nu.edu.pk
+2025-10-03 20:26:11.911139 : Email sent to k230502@nu.edu.pk
+2025-10-03 20:26:19.082331 : Email sent to k230812@nu.edu.pk
+2025-10-03 20:26:27.728992 : Email sent to I230710@nu.edu.pk
+2025-10-04 02:39:59.301879 : PROCESS STARTED
+2025-10-04 02:40:17.691855 : Email sent to i230710@isb.nu.edu.pk

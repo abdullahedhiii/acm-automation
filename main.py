@@ -3,12 +3,13 @@ import pandas as pd
 from datetime import datetime
 from send_email import sendEmailContent 
 from html_content import get_html_content
+from gen_img import generate
 
 def driver_function(excel_file):
     """Reads email addresses from an Excel file and sends emails. Stores unsent emails in 'failed_emails.xlsx'."""
     failed_records = []
     logfile = open("processlogs.log", "a"); 
-    template_path = "./workshops-email/template.html"
+    template_path = "./team-emails/lettertemp.html"
     logfile.write(f"{datetime.now()} : PROCESS STARTED\n")
     try:
         
@@ -17,14 +18,17 @@ def driver_function(excel_file):
 
         for _, row in all_data.iterrows():
             try:
+                text = f"Dear {row["name"]}, \nCongratulations on your appointment as the {row['position']} of the Team {row['team']}"
+                generate(row["name"], row["position"], row["team"])
+                
                 recieverEmail = row['email']
-                subject = "Welcome to ACM SkillPrep Series"
+                subject = "Welcome to ACM NUCES KHI"
 
                 # Create a list of team members from the file data
                 htmlContent = get_html_content(template_path, row.to_dict())
 
                 # Send email and track failures
-                if not sendEmailContent(recieverEmail, subject, htmlContent):
+                if not sendEmailContent(recieverEmail, subject, htmlContent, row["name"]):
                     failed_records.append(row.to_dict())
                     logfile.write(f"{datetime.now()} : Couldn't send email to {recieverEmail}\n")
                 else:
@@ -54,7 +58,7 @@ def driver_function(excel_file):
             print("[!] Some emails were not sent. Check 'failed_emails.xlsx' for details.")
 
 # Run the function with user-selected Excel file
-file_name = "./workshops-email/records.xlsx"
+file_name = "./team-emails/sampledata.xlsx"
 if file_name:
     driver_function(file_name)
 else:

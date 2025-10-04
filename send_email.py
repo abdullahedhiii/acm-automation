@@ -3,6 +3,7 @@ import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
 from email import encoders
 from dotenv import load_dotenv
 
@@ -28,7 +29,7 @@ def signIn():
         print(f"[X] Error: {e}")
     return None
 
-def sendEmailContent(recieverEmail, subject, htmlContent):
+def sendEmailContent(recieverEmail, subject, htmlContent, name):
     """Sends an email with HTML content and an optional PDF attachment."""
     smtp = signIn()
     if not smtp:
@@ -36,12 +37,18 @@ def sendEmailContent(recieverEmail, subject, htmlContent):
         return False
 
     try:
-        msg = MIMEMultipart()
+        msg = MIMEMultipart("related")
         msg["From"] = senderEmail
         msg["To"] = recieverEmail
         msg["Subject"] = subject
 
         msg.attach(MIMEText(str(htmlContent), 'html'))
+
+        with open(r"C:\Users\ABC\Documents\acm-automation\images\final.png", "rb") as f:
+            img = MIMEImage(f.read())
+            img.add_header("Content-ID", "<image1>")
+            img.add_header("Content-Disposition", "inline", filename=f"Appointment_Letter_{name}.png")
+            msg.attach(img)
 
         smtp.sendmail(senderEmail, recieverEmail, msg.as_string())
         smtp.quit()
