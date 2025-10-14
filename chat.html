@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACM NUCES Karachi - Chat Assistant</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #7c3aed;
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --user-msg-bg: #2563eb;
+            --bot-msg-bg: #f3f4f6;
+            --border-color: #e5e7eb;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--text-dark);
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .acm-logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .session-info {
+            font-size: 12px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 16px 20px;
+            border-radius: 18px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .message.user .message-content {
+            background: var(--user-msg-bg);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: var(--text-dark);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 16px 20px;
+            background: white;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            width: fit-content;
+        }
+
+        .typing-indicator.show {
+            display: flex;
+            gap: 6px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--text-light);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .input-container {
+            padding: 20px 30px;
+            background: white;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s;
+            resize: none;
+            max-height: 120px;
+            min-height: 50px;
+        }
+
+        #user-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        #send-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        #send-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        #send-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        #send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn-secondary {
+            padding: 8px 16px;
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            background: #f0f7ff;
+        }
+
+        .welcome-message {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message h3 {
+            color: var(--text-dark);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-message p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .quick-question {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-dark);
+            transition: all 0.3s;
+        }
+
+        .quick-question:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            border-left: 4px solid var(--error-color);
+            color: #991b1b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .connection-status {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .connection-status.connected {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .connection-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--error-color);
+        }
+
+        /* Scrollbar styling */
+        .messages-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .chat-container {
+                height: calc(100vh - 200px);
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .quick-questions {
+                flex-direction: column;
+            }
+
+            .quick-question {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="acm-logo">💻</div>
+            <h1>ACM NUCES Karachi</h1>
+            <p>Your friendly assistant for all ACM events and activities</p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">Chat Assistant</div>
+                <div class="session-info">
+                    <div class="status-dot"></div>
+                    <span id="session-status">Connected</span>
+                </div>
+            </div>
+
+            <div class="messages-container" id="messages">
+                <div class="welcome-message">
+                    <h3>👋 Welcome to ACM NUCES Karachi!</h3>
+                    <p>I'm your AI assistant. I can help you with information about Coders Cup, Developers Day, our competitions, teams, and more. Feel free to ask me anything!</p>
+                    <div class="quick-questions">
+                        <div class="quick-question" onclick="sendQuickQuestion('What is Coders Cup?')">What is Coders Cup?</div>
+                        <div class="quick-question" onclick="sendQuickQuestion('Tell me about Developers Day')">Developers Day</div>
+                        <div class="quick-question" onclick="sendQuickQuestion('What competitions are available?')">Available Competitions</div>
+                        <div class="quick-question" onclick="sendQuickQuestion('How can I join a team?')">Join a Team</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea
+                        id="user-input"
+                        placeholder="Type your message here..."
+                        rows="1"
+                        onkeypress="handleKeyPress(event)"
+                        oninput="autoResize(this)"
+                    ></textarea>
+                    <button id="send-btn" onclick="sendMessage()">Send</button>
+                </div>
+                <div class="controls">
+                    <button class="btn-secondary" onclick="clearChat()">🔄 New Chat</button>
+                    <button class="btn-secondary" onclick="testConnection()">📡 Test Connection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8001';  // Change back to 8000 for production
+        let sessionId = null;
+        const messagesContainer = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const sessionStatus = document.getElementById('session-status');
+
+        // Auto-resize textarea
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        // Handle Enter key
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Format time
+        function getFormattedTime() {
+            return new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Add message to chat
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? '👤' : '🤖';
+
+            const contentWrapper = document.createElement('div');
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = text;
+
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = getFormattedTime();
+
+            contentWrapper.appendChild(contentDiv);
+            if (sender === 'user') {
+                contentWrapper.appendChild(timeDiv);
+            }
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(contentWrapper);
+
+            // Remove typing indicator if exists
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const messageDiv = document.createElement('div');
+            messageDiv.id = 'typing-indicator-wrapper';
+            messageDiv.className = 'message bot';
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = '🤖';
+
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'typing-indicator show';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(typingDiv);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Remove typing indicator
+        function removeTypingIndicator() {
+            const typingWrapper = document.getElementById('typing-indicator-wrapper');
+            if (typingWrapper) {
+                typingWrapper.remove();
+            }
+        }
+
+        // Show connection status
+        function showConnectionStatus(success, message) {
+            const existingStatus = document.querySelector('.connection-status');
+            if (existingStatus) {
+                existingStatus.remove();
+            }
+
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `connection-status ${success ? 'connected' : 'error'}`;
+            statusDiv.textContent = message;
+            messagesContainer.insertBefore(statusDiv, messagesContainer.firstChild.nextSibling);
+        }
+
+        // Test connection
+        async function testConnection() {
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const data = await response.json();
+
+                if (data.status === 'healthy') {
+                    showConnectionStatus(true, '✓ Connected to ACM Chatbot Server');
+                    sessionStatus.textContent = 'Connected';
+                } else {
+                    showConnectionStatus(false, '⚠ Server responded but status unclear');
+                    sessionStatus.textContent = 'Unstable';
+                }
+            } catch (error) {
+                showConnectionStatus(false, '✗ Cannot connect to server. Make sure it\'s running at ' + API_URL);
+                sessionStatus.textContent = 'Disconnected';
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage('user', message);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // Disable input
+            sendBtn.disabled = true;
+            userInput.disabled = true;
+            showTypingIndicator();
+
+            try {
+                const response = await fetch(`${API_URL}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: sessionId
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Store session ID for conversation continuity
+                sessionId = data.session_id;
+
+                removeTypingIndicator();
+                addMessage('bot', data.response);
+
+            } catch (error) {
+                removeTypingIndicator();
+                addMessage('bot', `Sorry, I encountered an error: ${error.message}. Please make sure the server is running.`);
+                console.error('Error:', error);
+            } finally {
+                sendBtn.disabled = false;
+                userInput.disabled = false;
+                userInput.focus();
+            }
+        }
+
+        // Send quick question
+        function sendQuickQuestion(question) {
+            userInput.value = question;
+            sendMessage();
+        }
+
+        // Clear chat and start new session
+        async function clearChat() {
+            if (confirm('Start a new conversation? This will clear the current chat.')) {
+                // Delete old session
+                if (sessionId) {
+                    try {
+                        await fetch(`${API_URL}/session/${sessionId}`, {
+                            method: 'DELETE'
+                        });
+                    } catch (error) {
+                        console.error('Error deleting session:', error);
+                    }
+                }
+
+                // Reset
+                sessionId = null;
+                messagesContainer.innerHTML = `
+                    <div class="welcome-message">
+                        <h3>👋 Welcome to ACM NUCES Karachi!</h3>
+                        <p>I'm your AI assistant. I can help you with information about Coders Cup, Developers Day, our competitions, teams, and more. Feel free to ask me anything!</p>
+                        <div class="quick-questions">
+                            <div class="quick-question" onclick="sendQuickQuestion('What is Coders Cup?')">What is Coders Cup?</div>
+                            <div class="quick-question" onclick="sendQuickQuestion('Tell me about Developers Day')">Developers Day</div>
+                            <div class="quick-question" onclick="sendQuickQuestion('What competitions are available?')">Available Competitions</div>
+                            <div class="quick-question" onclick="sendQuickQuestion('How can I join a team?')">Join a Team</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Test connection on page load
+        window.addEventListener('load', () => {
+            setTimeout(testConnection, 500);
+            userInput.focus();
+        });
+    </script>
+</body>
+</html>
