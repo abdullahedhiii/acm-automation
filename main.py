@@ -8,6 +8,7 @@ import json
 import uuid
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from fastapi.responses import FileResponse
 
 # Load environment variables
 load_dotenv()
@@ -270,14 +271,8 @@ class ChatResponse(BaseModel):
     status: str = "success"
 
 @app.get("/")
-async def root():
-    """Health check endpoint"""
-    return {
-        "status": "online",
-        "service": "ACM NUCES Karachi Chatbot",
-        "version": "2.0.0",
-        "features": ["conversation_memory", "session_management"]
-    }
+async def serve_home():
+    return FileResponse("chat.html")
 
 @app.get("/health")
 async def health():
