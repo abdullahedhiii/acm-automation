@@ -29,42 +29,42 @@ def signIn():
         print(f"[X] Error: {e}")
     return None
 
-# def sendEmailContent(recieverEmail, subject, htmlContent, name):
-#     """Sends an email with HTML content and an optional PDF attachment."""
-#     smtp = signIn()
-#     if not smtp:
-#         print(f"[X] SMTP sign-in failed. Email to {recieverEmail} not sent.")
-#         return False
+def sendEmailContent(recieverEmail, subject, htmlContent, name):
+    """Sends an email with HTML content and an optional PDF attachment."""
+    smtp = signIn()
+    if not smtp:
+        print(f"[X] SMTP sign-in failed. Email to {recieverEmail} not sent.")
+        return False
 
-#     try:
-#         msg = MIMEMultipart("related")
-#         msg["From"] = senderEmail
-#         msg["To"] = recieverEmail
-#         msg["Subject"] = subject
+    try:
+        msg = MIMEMultipart("related")
+        msg["From"] = senderEmail
+        msg["To"] = recieverEmail
+        msg["Subject"] = subject
 
-#         msg.attach(MIMEText(str(htmlContent), 'html'))
+        msg.attach(MIMEText(str(htmlContent), 'html'))
 
-#         with open(r"C:\Users\ABC\Documents\acm-automation\images\final.png", "rb") as f:
-#             img = MIMEImage(f.read())
-#             img.add_header("Content-ID", "<image1>")
-#             img.add_header("Content-Disposition", "inline", filename=f"Appointment_Letter_{name}.png")
-#             msg.attach(img)
+        with open(r"C:\Users\ABC\Documents\acm-automation\images\final.png", "rb") as f:
+            img = MIMEImage(f.read())
+            img.add_header("Content-ID", "<image1>")
+            img.add_header("Content-Disposition", "inline", filename=f"Appointment_Letter_{name}.png")
+            msg.attach(img)
 
-#         smtp.sendmail(senderEmail, recieverEmail, msg.as_string())
-#         smtp.quit()
-#         print(f"[+] Email sent successfully to {recieverEmail}")
-#         return True
+        smtp.sendmail(senderEmail, recieverEmail, msg.as_string())
+        smtp.quit()
+        print(f"[+] Email sent successfully to {recieverEmail}")
+        return True
 
-#     except smtplib.SMTPRecipientsRefused:
-#         print(f"[X] Invalid email address: {recieverEmail}. Saving to unsent list.")
-#         return False
-#     except Exception as e:
-#         print(f"[X] Error sending email: {e}")
-#         return False
+    except smtplib.SMTPRecipientsRefused:
+        print(f"[X] Invalid email address: {recieverEmail}. Saving to unsent list.")
+        return False
+    except Exception as e:
+        print(f"[X] Error sending email: {e}")
+        return False
     
 
 def sendConfirmation(recieverEmail, subject, htmlContent):
-    
+    """Sends an email with HTML content and an optional PDF attachment."""
     smtp = signIn()
     if not smtp:
         print(f"[X] SMTP sign-in failed. Email to {recieverEmail} not sent.")
