@@ -7,8 +7,8 @@ from send_email import sendConfirmation
 from datetime import datetime
 import os
 
-csv_path = easygui.fileopenbox(title="Select CSV file", default="*.csv")
-template_path = easygui.fileopenbox(title="Select html template", default="*.html")
+csv_path = "./test.csv"
+template_path = "./emailtemp.html"
 
 load_dotenv()
 
