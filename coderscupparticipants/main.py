@@ -7,7 +7,7 @@ from send_email import sendConfirmation
 from datetime import datetime
 import os
 
-csv_path = "./test.csv"
+csv_path = "./Competitive Programming Registrations - (Nov 11 - 2 15 pm).csv"
 template_path = "./emailtemp.html"
 
 load_dotenv()
@@ -25,6 +25,7 @@ def readfromcsv(csv_path):
         csvFile = csv.DictReader(file)
         for lines in csvFile:
             data.append(lines)
+            print(lines["Leader Email Address"])
     return data
 
 def writetocsv(data):
@@ -50,7 +51,7 @@ def email(data):
     for team in data: 
         try:
             html = get_confirmation_content(template_path, team, "Competitive Programming")
-            rcvr = team["LeaderEmailAddress"]
+            rcvr = team["Leader Email Address"]
             sbjct = "Registration Confirmation for Coders Cup 2025"
             
             if not sendConfirmation(rcvr, sbjct, html): 

@@ -12,19 +12,19 @@ def get_confirmation_content(template_path, params, comp):
         template = f.read()
 
     table_content = f'''
-                <p style="margin:5px 0; color:#F0C93D;"><strong>Member 1:</strong> <span style="color:#FFFFFF;">{params["LeaderName"]}</span></p>
+                <p style="margin:5px 0; color:#F0C93D;"><strong>Member 1:</strong> <span style="color:#FFFFFF;">{params["Leader Name"]}</span></p>
           '''
-    if params["Member1Name"] != "":
+    if params["Member 1 Name"] != "":
         table_content += f'''
-              <p style="margin:5px 0; color:#F0C93D;"><strong>Member 1:</strong> <span style="color:#FFFFFF;">{params["Member1Name"]}</span></p>
+              <p style="margin:5px 0; color:#F0C93D;"><strong>Member 1:</strong> <span style="color:#FFFFFF;">{params["Member 1 Name"]}</span></p>
         '''
-    if params["Member2Name"] != "":
+    if params["Member 2 Name"] != "":
         table_content += f'''
-          <p style="margin:5px 0; color:#F0C93D;"><strong>Member 2:</strong> <span style="color:#FFFFFF;">{params["Member2Name"]}</span></p>
+          <p style="margin:5px 0; color:#F0C93D;"><strong>Member 2:</strong> <span style="color:#FFFFFF;">{params["Member 2 Name"]}</span></p>
           '''
   
     # Replace placeholders with actual values
-    html_content = template.format(teamname=params["TeamName"], competitionname = comp, table = table_content)
+    html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content)
 
     return html_content
 
