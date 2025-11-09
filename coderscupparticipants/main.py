@@ -7,12 +7,13 @@ from send_email import sendConfirmation
 from datetime import datetime
 import os
 
-csv_path = "./Competitive Programming Registrations - (Nov 11 - 2 15 pm).csv"
+# csv_path = "./Competitive Programming Registrations - (Nov 11 - 2 15 pm).csv"
+csv_path = easygui.fileopenbox(title="Select CSV file with participant details", filetypes=["*.csv"])
 template_path = "./emailtemp.html"
 
 load_dotenv()
 
-# username = os.getenv('DB_USERNAME')
+username = os.getenv('DB_USERNAME')
 # password = quote_plus(os.getenv('DB_PASSWORD'))
 
 
@@ -24,8 +25,10 @@ def readfromcsv(csv_path):
     with open(csv_path, mode ='r')as file:
         csvFile = csv.DictReader(file)
         for lines in csvFile:
+            lines["Att_code"] = generateCode()
+            lines["Attendance_marked"] = False
             data.append(lines)
-            print(lines["Leader Email Address"])
+            print(lines["LeaderEmailAddress"])
     return data
 
 def writetocsv(data):
@@ -37,12 +40,21 @@ def writetocsv(data):
         writer.writerow(team)
     failedcsv.close()
 
+def generateCode():
+    with open("codegen.txt", "r") as f:
+        last_code = f.read().strip()
+    code = str(int(last_code) + 1).zfill(5)
+    new_code = "CC-" + code
+    with open("codegen.txt", "w") as f:
+        f.write(str(code))
+    return new_code
+
 def insertintodb(document):
     client = MongoClient(mongo_uri)
     db = client['TestDB']  # Database name
     collection = db['CP']  # Collection name
     inserted_documents = collection.insert_many(document)  
-    print(f"Inserted document ids: {inserted_documents.inserted_ids}")
+    print(f"Inserted document ids: {inserted_documents.inserted_ids}, Last Code: {document[-1]['Att_code']}")
     client.close()
 
 def email(data):
@@ -51,7 +63,7 @@ def email(data):
     for team in data: 
         try:
             html = get_confirmation_content(template_path, team, "Competitive Programming")
-            rcvr = team["Leader Email Address"]
+            rcvr = team["LeaderEmailAddress"]
             sbjct = "Registration Confirmation for Coders Cup 2025"
             
             if not sendConfirmation(rcvr, sbjct, html): 
@@ -72,8 +84,8 @@ def email(data):
 
 def main():
     data = readfromcsv(csv_path)
-    # insertintodb(data)
-    email(data)
+    insertintodb(data)
+    # email(data)
 
 if __name__ == "__main__":
     main()
