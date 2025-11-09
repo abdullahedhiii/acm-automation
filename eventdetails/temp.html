@@ -19,7 +19,7 @@
         font-size: 28px !important;
       }}
       .content {{
-        font-size: 16px !important;
+        font-size: 14px !important;
         line-height: 1.6 !important;
       }}
     }}
@@ -71,16 +71,8 @@
                   <strong style="font-size:20px;">Hi {teamname},</strong>
                 </p>
 
-                <p style="margin:0 0 20px 0;">
-                  Congratulations! You have successfully registered for the <strong>{competitionname}</strong> competition at Coders Cup 2025.
-                </p>
-
                 <p style="margin: 0 0 20px 0;">
                     Please find below all the relevant information and resources for the event including your <strong>event details</strong>, <strong>competition rules</strong>, and link to the <strong>attendance portal</strong>.
-                </p>
-
-                <p style="margin:0 0 20px 0;" >
-                    Kindly note that the <strong>attendance code</strong> provided below will be required to mark the attendance on the portal on the day of the event.
                 </p>
 
                 <!-- Credentials Box -->
@@ -99,8 +91,31 @@
                         <span>Attendance Code: <span style="font-weight: normal;">{att_code}</span></span>
                     </div>
                 </div>
+
+                <p style="margin:0 0 20px 0;" >
+                <strong>Important Instructions:</strong>
+                <ul>
+                    <li>Reach the venue 20–30 minutes before the contest starts.</li>
+                    <li>Ensure that internet connectivity, equipment, and required compilers/interpreters are set up properly.</li>
+                    <li>All team members must be present to mark attendance. Certificates will only be awarded if team attendance is recorded.</li>
+                    <li>Keep your University ID cards for verification.</li>
+                </ul>
+                </p>
+
+                <p style="margin:0 0 20px 0;">
+                <strong>Rules and Regulations:</strong>
+                
+                <ul style="margin:10px 0 20px 20px;">
+                  <li>Once the contest begins, no participant will be allowed to enter.</li>
+                  <li>Leaving the lab during the contest means you will not be allowed back in.</li>
+                  <li>Ensure you have access to your VJudge account (the same one used during registration).</li>
+                  <li>Use of the internet or any AI tools is strictly prohibited and will result in immediate disqualification.</li>
+                </ul>
+                </p>
+
+                
                 <div style="margin:0 0 20px 0;">
-                    <h3 style="margin: 0 0 15px 0;">Essential Resources:</h3>
+                    <h3 style="margin: 0 0 15px 0;">Important Links:</h3>
                     <div style="margin: 0  15px 0;">
                             📄 Competition Rulebook: <a href={rule_book}>Open Link</a><br>
                             📄 Attendance Portal: <a href={attendance_website}>Open Link</a><br>
@@ -122,7 +137,7 @@
           <!-- Footer -->
           <tr>
             <td style="border-top:1px solid #930000; padding:20px; text-align:center;">
-              <p style="margin:0 0 15px 0; font-size:15px; color:#930000;">STAY CONNECTED</p>
+              <p style="margin:0 0 15px 0; font-size:13px; color:#930000;">STAY CONNECTED</p>
 
               <table role="presentation" align="center" cellspacing="0" cellpadding="0" border="0">
                 <tr>
