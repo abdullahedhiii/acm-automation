@@ -73,7 +73,7 @@ def email(data, competition, rules, attw):
 def main():
     competition = "Competitive Programming"
     rules = "https://coderscup.acmnuceskhi.com/ruleBook/Competitive%20Programming.pdf"
-    attendance_website = "https://coderscup.acmnuceskhi.com/attendance"
+    attendance_website = "https://attendance.acmnuceskhi.com/"
     data = readfromcsv(csv_path)
     # insertintodb(data)
     email(data, competition, rules, attendance_website)
