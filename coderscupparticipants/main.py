@@ -14,21 +14,21 @@ template_path = "./emailtemp.html"
 load_dotenv()
 
 username = os.getenv('DB_USERNAME')
-# password = quote_plus(os.getenv('DB_PASSWORD'))
+password = quote_plus(os.getenv('DB_PASSWORD'))
 
 
-# mongo_uri = f"mongodb+srv://{username}:{password}@cluster0.gi579ft.mongodb.net/?appName=Cluster0"
-mongo_uri = os.getenv('MONGO_URI_TEST')
+mongo_uri = f"mongodb+srv://{username}:{password}@cluster0.gi579ft.mongodb.net/?appName=Cluster0"
+# mongo_uri = os.getenv('MONGO_URI_TEST')
 
 def readfromcsv(csv_path):
     data = []
     with open(csv_path, mode ='r')as file:
         csvFile = csv.DictReader(file)
         for lines in csvFile:
-            lines["Att_code"] = generateCode()
-            lines["Attendance_marked"] = False
+            lines["Att Code"] = generateCode()
+            lines["Attendance Marked"] = False
             data.append(lines)
-            print(lines["LeaderEmailAddress"])
+            print(lines["Leader Email Address"])
     return data
 
 def writetocsv(data):
@@ -51,10 +51,10 @@ def generateCode():
 
 def insertintodb(document):
     client = MongoClient(mongo_uri)
-    db = client['TestDB']  # Database name
-    collection = db['CP']  # Collection name
+    db = client['CodersCup']  # Database name
+    collection = db['CP-Participants']  # Collection name
     inserted_documents = collection.insert_many(document)  
-    print(f"Inserted document ids: {inserted_documents.inserted_ids}, Last Code: {document[-1]['Att_code']}")
+    print(f"Inserted document ids: {inserted_documents.inserted_ids}, Last Code: {document[-1]['Att Code']}")
     client.close()
 
 def email(data):
@@ -63,7 +63,7 @@ def email(data):
     for team in data: 
         try:
             html = get_confirmation_content(template_path, team, "Competitive Programming")
-            rcvr = team["LeaderEmailAddress"]
+            rcvr = team["Leader Email Address"]
             sbjct = "Registration Confirmation for Coders Cup 2025"
             
             if not sendConfirmation(rcvr, sbjct, html): 
@@ -85,7 +85,7 @@ def email(data):
 def main():
     data = readfromcsv(csv_path)
     insertintodb(data)
-    # email(data)
+    email(data)
 
 if __name__ == "__main__":
     main()
