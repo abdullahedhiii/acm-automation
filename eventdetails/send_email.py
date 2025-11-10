@@ -74,6 +74,7 @@ def sendConfirmation(recieverEmail, subject, htmlContent):
         msg = MIMEMultipart("related")
         msg["From"] = senderEmail
         msg["To"] = recieverEmail
+        # msg['Cc'] = ", ".join(cc)
         msg["Subject"] = subject
 
         msg.attach(MIMEText(str(htmlContent), 'html'))

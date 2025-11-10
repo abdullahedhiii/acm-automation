@@ -12,22 +12,22 @@ def get_event_content(template_path, params, comp, rules, attw):
         template = f.read()
 
     table_content = f'''
-                <span>Team Lead: <span style="font-weight: normal">{params["LeaderName"]}</span></span>
+                <span>Team Lead: <span style="font-weight: normal">{params["Leader Name"]}</span></span>
                 <br>
           '''
-    if params["Member1Name"] != "":
+    if params["Member 1 Name"] != "":
         table_content += f'''
-              <span>Member 1: <span style="font-weight: normal">{params["Member1Name"]}</span></span>
+              <span>Member 1: <span style="font-weight: normal">{params["Member 1 Name"]}</span></span>
               <br>
         '''
-    if params["Member2Name"] != "":
+    if params["Member 2 Name"] != "":
         table_content += f'''
-          <span>Member 2: <span style="font-weight: normal">{params["Member2Name"]}</span></span>
+          <span>Member 2: <span style="font-weight: normal">{params["Member 2 Name"]}</span></span>
           <br>
           '''
   
     # Replace placeholders with actual values
-    html_content = template.format(teamname=params["TeamName"], competitionname = comp, table = table_content, venue=params["Venue"], date="November 10", time=params["Time"], att_code=params["att_code"],Vjudgeusername=params["Vjudgeusername"], rule_book=rules, attendance_website=attw)
+    html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, venue=params["Venue"], date="November 11", time=params["Contest Time"], att_code=params["att_code"],Vjudgeusername=params["Vjudge username"], rule_book=rules, attendance_website=attw)
 
     return html_content
 
