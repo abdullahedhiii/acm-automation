@@ -51,52 +51,52 @@ def get_attendance_code(email):
     finally:
         client.close()
 
-print(get_attendance_code("k224392@nu.edu.pk"))
-# data = readfromcsv(csv_path)
-# for team in data:
-#     email_addr= team.get("LeaderEmailAddress","").strip()
-#     print(get_attendance_code(email_addr))
+# print(get_attendance_code("k224392@nu.edu.pk"))
+data = readfromcsv(csv_path)
+for team in data:
+    email_addr= team.get("LeaderEmailAddress","").strip()
+    print(get_attendance_code(email_addr))
 
-# def email(data, competition, rules, attw):
-#     failed_records = []
-#     logfile = open("processlogs.log", "a")
+def email(data, competition, rules, attw):
+    failed_records = []
+    logfile = open("processlogs.log", "a")
 
-#     for team in data:
-#         try:
-#             # fetch att_code from DB and add to row
-#             email_addr = team.get("LeaderEmailAddress", "").strip()
-#             att_code = get_attendance_code(email_addr)
-#             team["att_code"] = att_code if att_code else "N/A"
+    for team in data:
+        try:
+            # fetch att_code from DB and add to row
+            email_addr = team.get("LeaderEmailAddress", "").strip()
+            att_code = get_attendance_code(email_addr)
+            team["att_code"] = att_code if att_code else "N/A"
 
-#             html = get_event_content(template_path, team, competition, rules, attw)
-#             rcvr = email_addr
-#             sbjct = "Event Details for Coders Cup 2025"
+            html = get_event_content(template_path, team, competition, rules, attw)
+            rcvr = email_addr
+            sbjct = "Event Details for Coders Cup 2025"
 
-#             if not sendConfirmation(rcvr, sbjct, html):
-#                 failed_records.append(team)
-#                 print(f"[!] Error sending email to {rcvr}")
-#                 logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
-#             else:
-#                 print(f"[+] Email sent to {rcvr} (att_code={att_code})")
-#                 logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
+            if not sendConfirmation(rcvr, sbjct, html):
+                failed_records.append(team)
+                print(f"[!] Error sending email to {rcvr}")
+                logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
+            else:
+                print(f"[+] Email sent to {rcvr} (att_code={att_code})")
+                logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
 
-#         except Exception as e:
-#             print(f"[!] Error processing email for {team.get('LeaderEmailAddress')}: {e}")
-#             logfile.write(f"{datetime.now()} : [!] Error processing email for {team.get('LeaderEmailAddress')}: {e}\n")
-#             failed_records.append(team)
+        except Exception as e:
+            print(f"[!] Error processing email for {team.get('LeaderEmailAddress')}: {e}")
+            logfile.write(f"{datetime.now()} : [!] Error processing email for {team.get('LeaderEmailAddress')}: {e}\n")
+            failed_records.append(team)
 
-#     logfile.close()
-#     if failed_records:
-#         writetocsv(failed_records)
-
-
-# def main():
-#     competition = "Competitive Programming"
-#     rules = "https://coderscup.acmnuceskhi.com/ruleBook/Competitive%20Programming.pdf"
-#     attendance_website = "https://attendance.acmnuceskhi.com/"
-#     data = readfromcsv(csv_path)
-#     email(data, competition, rules, attendance_website)
+    logfile.close()
+    if failed_records:
+        writetocsv(failed_records)
 
 
-# if __name__ == "__main__":
-#     main()
+def main():
+    competition = "Competitive Programming"
+    rules = "https://coderscup.acmnuceskhi.com/ruleBook/Competitive%20Programming.pdf"
+    attendance_website = "https://attendance.acmnuceskhi.com/"
+    data = readfromcsv(csv_path)
+    email(data, competition, rules, attendance_website)
+
+
+if __name__ == "__main__":
+    main()
