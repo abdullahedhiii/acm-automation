@@ -55,18 +55,13 @@ def get_attendance_code(email):
     finally:
         client.close()
 
-<<<<<<< HEAD
+
 # print(get_attendance_code("k252026@nu.edu.pk"))
 data = readfromcsv(csv_path)
 for team in data:
     email_addr= team.get("Leader Email Address","").strip()
-=======
-# print(get_attendance_code("k224392@nu.edu.pk"))
-data = readfromcsv(csv_path)
-for team in data:
-    email_addr= team.get("LeaderEmailAddress","").strip()
->>>>>>> 93bb778c2b249f03900074f8635f507309c8b731
-    print(get_attendance_code(email_addr))
+
+
 
 def email(data, competition, rules, attw):
     failed_records = []
@@ -75,7 +70,6 @@ def email(data, competition, rules, attw):
     for team in data:
         try:
             # fetch att_code from DB and add to row
-<<<<<<< HEAD
             email_addr = team.get("Leader Email Address", "").strip()
             att_code = get_attendance_code(email_addr)
             team["att_code"] = att_code if att_code else "N/A"
@@ -97,29 +91,6 @@ def email(data, competition, rules, attw):
             logfile.write(f"{datetime.now()} : [!] Error processing email for {team.get('Leader Email Address')}: {e}\n")
             failed_records.append(team)
 
-=======
-            email_addr = team.get("LeaderEmailAddress", "").strip()
-            att_code = get_attendance_code(email_addr)
-            team["att_code"] = att_code if att_code else "N/A"
-
-            html = get_event_content(template_path, team, competition, rules, attw)
-            rcvr = email_addr
-            sbjct = "Event Details for Coders Cup 2025"
-
-            if not sendConfirmation(rcvr, sbjct, html):
-                failed_records.append(team)
-                print(f"[!] Error sending email to {rcvr}")
-                logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
-            else:
-                print(f"[+] Email sent to {rcvr} (att_code={att_code})")
-                logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
-
-        except Exception as e:
-            print(f"[!] Error processing email for {team.get('LeaderEmailAddress')}: {e}")
-            logfile.write(f"{datetime.now()} : [!] Error processing email for {team.get('LeaderEmailAddress')}: {e}\n")
-            failed_records.append(team)
-
->>>>>>> 93bb778c2b249f03900074f8635f507309c8b731
     logfile.close()
     if failed_records:
         writetocsv(failed_records)
