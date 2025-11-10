@@ -27,7 +27,7 @@ def get_event_content(template_path, params, comp, rules, attw):
           '''
   
     # Replace placeholders with actual values
-    html_content = template.format(teamname=params["TeamName"], competitionname = comp, table = table_content, venue=params["Venue"], date=params["Date"], time=params["Time"], att_code=params["att_code"], rule_book=rules, attendance_website=attw)
+    html_content = template.format(teamname=params["TeamName"], competitionname = comp, table = table_content, venue=params["Venue"], date="November 10", time=params["Time"], att_code=params["att_code"],Vjudgeusername=params["Vjudgeusername"], rule_book=rules, attendance_website=attw)
 
     return html_content
 

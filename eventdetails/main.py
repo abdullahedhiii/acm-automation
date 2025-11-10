@@ -1,32 +1,27 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
-import easygui, csv
+import csv
 from urllib.parse import quote_plus
 from html_content import get_event_content
 from send_email import sendConfirmation
 from datetime import datetime
 import os
 
-csv_path = easygui.fileopenbox(title="Select CSV file with event details", filetypes=["*.csv"])
-template_path = easygui.fileopenbox(title="Select HTML template file", filetypes=["*.html"])
+csv_path = "./Coders Cup Lab Allocation (Monday 10th) - Monday 10th Nov.csv"
+template_path = "./temp.html"
 
 load_dotenv()
 
-# username = os.getenv('DB_USERNAME')
-# password = quote_plus(os.getenv('DB_PASSWORD'))
-
-
-# mongo_uri = f"mongodb+srv://{username}:{password}@cluster0.gi579ft.mongodb.net/?appName=Cluster0"
-mongo_uri = os.getenv('MONGO_URI_TEST')
+mongo_uri = os.getenv("MONGO_URI_TEST")
 
 def readfromcsv(csv_path):
     data = []
-    with open(csv_path, mode ='r')as file:
+    with open(csv_path, mode='r') as file:
         csvFile = csv.DictReader(file)
         for lines in csvFile:
             data.append(lines)
-            print(lines["LeaderEmailAddress"])
     return data
+
 
 def writetocsv(data):
     failedcsv = open("failed.csv", "w", newline="")
@@ -37,46 +32,71 @@ def writetocsv(data):
         writer.writerow(team)
     failedcsv.close()
 
-# def insertintodb(document):
-#     client = MongoClient(mongo_uri)
-#     db = client['TestDB']  # Database name
-#     collection = db['CP']  # Collection name
-#     inserted_documents = collection.insert_many(document)  
-#     print(f"Inserted document ids: {inserted_documents.inserted_ids}")
-#     client.close()
 
-def email(data, competition, rules, attw):
-    failed_records = []
-    logfile = open("processlogs.log", "a"); 
-    for team in data: 
-        try:
-            html = get_event_content(template_path, team, competition, rules, attw)
-            rcvr = team["LeaderEmailAddress"]
-            sbjct = "Event Details for Coders Cup 2025"
-            
-            if not sendConfirmation(rcvr, sbjct, html): 
-                failed_records.append(team)
-                print(f"[!] Error sending email to {rcvr}")
-                logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
-            else:
-                print(f"[+] Email sent to {rcvr}")
-                logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
-        except Exception as e:
-            print(f"[!] Error processing email for {rcvr}: {e}")
-            logfile.write(f"{datetime.now()} : [!] Error processing email for {rcvr}: {e}\n")
-            failed_records.append(team)
-    logfile.close()
-    if failed_records:
-        writetocsv(failed_records)
+def get_attendance_code(email):
+    """Fetch attendance code from MongoDB for given leader email"""
+    try:
+        client = MongoClient(mongo_uri)
+        db = client["CodersCup"]  # adjust DB name if different
+        collection = db["CodersCupAttendance"]
+
+        participant = collection.find_one({"Leader Email Address": email})
+        if participant and "Att Code" in participant:
+            return participant["Att Code"]
+        else:
+            return None
+    except Exception as e:
+        print(f"[!] Database error for {email}: {e}")
+        return None
+    finally:
+        client.close()
+
+print(get_attendance_code("k224392@nu.edu.pk"))
+# data = readfromcsv(csv_path)
+# for team in data:
+#     email_addr= team.get("LeaderEmailAddress","").strip()
+#     print(get_attendance_code(email_addr))
+
+# def email(data, competition, rules, attw):
+#     failed_records = []
+#     logfile = open("processlogs.log", "a")
+
+#     for team in data:
+#         try:
+#             # fetch att_code from DB and add to row
+#             email_addr = team.get("LeaderEmailAddress", "").strip()
+#             att_code = get_attendance_code(email_addr)
+#             team["att_code"] = att_code if att_code else "N/A"
+
+#             html = get_event_content(template_path, team, competition, rules, attw)
+#             rcvr = email_addr
+#             sbjct = "Event Details for Coders Cup 2025"
+
+#             if not sendConfirmation(rcvr, sbjct, html):
+#                 failed_records.append(team)
+#                 print(f"[!] Error sending email to {rcvr}")
+#                 logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
+#             else:
+#                 print(f"[+] Email sent to {rcvr} (att_code={att_code})")
+#                 logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
+
+#         except Exception as e:
+#             print(f"[!] Error processing email for {team.get('LeaderEmailAddress')}: {e}")
+#             logfile.write(f"{datetime.now()} : [!] Error processing email for {team.get('LeaderEmailAddress')}: {e}\n")
+#             failed_records.append(team)
+
+#     logfile.close()
+#     if failed_records:
+#         writetocsv(failed_records)
 
 
-def main():
-    competition = "Competitive Programming"
-    rules = "https://coderscup.acmnuceskhi.com/ruleBook/Competitive%20Programming.pdf"
-    attendance_website = "https://attendance.acmnuceskhi.com/"
-    data = readfromcsv(csv_path)
-    # insertintodb(data)
-    email(data, competition, rules, attendance_website)
+# def main():
+#     competition = "Competitive Programming"
+#     rules = "https://coderscup.acmnuceskhi.com/ruleBook/Competitive%20Programming.pdf"
+#     attendance_website = "https://attendance.acmnuceskhi.com/"
+#     data = readfromcsv(csv_path)
+#     email(data, competition, rules, attendance_website)
 
-if __name__ == "__main__":
-    main()
+
+# if __name__ == "__main__":
+#     main()
