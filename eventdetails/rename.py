@@ -1,6 +1,8 @@
 from pymongo import MongoClient
+import os
+mongo_uri = os.getenv("MONGO_URI_TEST")
 
-client = MongoClient("mongodb+srv://abdullahedhi17:3fEs_-jzY%23V6VN%40@cluster0.gi579ft.mongodb.net/CodersCupDB?retryWrites=true&w=majority")
+client = MongoClient(mongo_uri)
 db = client["CodersCup"]
 
 db["CP-Participants"].rename("CodersCupAttendance")
