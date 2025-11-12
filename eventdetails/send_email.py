@@ -63,7 +63,7 @@ def sendEmailContent(recieverEmail, subject, htmlContent, name):
         return False
     
 
-def sendConfirmation(recieverEmail, subject, htmlContent):
+def sendConfirmation(recieverEmail, mem1, mem2, subject, htmlContent):
     """Sends an email with HTML content and an optional PDF attachment."""
     smtp = signIn()
     if not smtp:
@@ -74,14 +74,14 @@ def sendConfirmation(recieverEmail, subject, htmlContent):
         msg = MIMEMultipart("related")
         msg["From"] = senderEmail
         msg["To"] = recieverEmail
-        # msg['Cc'] = ", ".join(cc)
+        msg['Cc'] = f"{mem1}, {mem2}"
         msg["Subject"] = subject
 
         msg.attach(MIMEText(str(htmlContent), 'html'))
 
-        smtp.sendmail(senderEmail, recieverEmail, msg.as_string())
+        smtp.sendmail(senderEmail, (recieverEmail, mem1, mem2), msg.as_string())
         smtp.quit()
-        print(f"[+] Email sent successfully to {recieverEmail}")
+        print(f"[+] Email sent successfully to {recieverEmail}, {mem1}, {mem2}")
         return True
 
     except smtplib.SMTPRecipientsRefused:

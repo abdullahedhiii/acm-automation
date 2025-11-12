@@ -1,9 +1,9 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
-import csv
+import csv, easygui
 import os
 
-csv_path = "./Coders Cup Lab Allocation (Monday 10th) - Monday 10th Nov.csv"
+csv_path = easygui.fileopenbox(title="Select the CSV file with event details", default="*.csv")
 output_csv_path = "./attendance_codes.csv"
 
 load_dotenv()
@@ -38,17 +38,17 @@ def get_attendance_code(email):
 def create_new_csv(input_data, output_path):
     """Create new CSV with Leader Email, Vjudgeusername, and Att Code"""
     with open(output_path, "w", newline="") as csvfile:
-        fieldnames = ["Leader Email Address", "Vjudgeusername", "Att Code"]
+        fieldnames = ["Leader Email Address", "Vjudge username", "Att Code"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
 
         for team in input_data:
-            email = team.get("LeaderEmailAddress", "").strip()
-            vjudge = team.get("Vjudgeusername", "").strip()
+            email = team.get("Leader Email Address", "").strip()
+            vjudge = team.get("Vjudge username", "").strip()
             att_code = get_attendance_code(email)
             writer.writerow({
                 "Leader Email Address": email,
-                "Vjudgeusername": vjudge,
+                "Vjudge username": vjudge,
                 "Att Code": att_code or "N/A"
             })
             print(f"Processed: {email} -> {att_code or 'N/A'}")

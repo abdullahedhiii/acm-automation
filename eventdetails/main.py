@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
-import csv
+import csv, easygui
 from urllib.parse import quote_plus
 from html_content import get_event_content
 from send_email import sendConfirmation
@@ -9,8 +9,8 @@ import os
 
 # csv_path = "./Coders Cup Lab Allocation (Monday 10th) - Monday 10th Nov.csv"
 # csv_path = "./Coders Cup Lab Allocation (Freshman Tuesday 11th) - Tuesday 11th.csv"
-csv_path = "./Coders Cup Lab Allocation (Seniors Tuesday 11th) - Tuesday senior 11th.csv"
-
+# csv_path = "./Coders Cup Lab Allocation (Seniors Tuesday 11th) - Tuesday senior 11th.csv"
+csv_path = easygui.fileopenbox(title="Select the CSV file with event details", default="*.csv")
 # csv_path = "./test.csv"
 template_path = "./temp.html"
 
@@ -56,11 +56,6 @@ def get_attendance_code(email):
         client.close()
 
 
-# print(get_attendance_code("k252026@nu.edu.pk"))
-data = readfromcsv(csv_path)
-for team in data:
-    email_addr= team.get("Leader Email Address","").strip()
-
 
 
 def email(data, competition, rules, attw):
@@ -71,6 +66,8 @@ def email(data, competition, rules, attw):
         try:
             # fetch att_code from DB and add to row
             email_addr = team.get("Leader Email Address", "").strip()
+            mem1 = team.get("Member 1 Email Address", "").strip()
+            mem2 = team.get("Member 2 Email Address", "").strip()
             att_code = get_attendance_code(email_addr)
             team["att_code"] = att_code if att_code else "N/A"
             # cc = [team.get("Member 1 Email Address", "").strip(), team.get("Member 2 Email Address", "").strip()]
@@ -78,7 +75,7 @@ def email(data, competition, rules, attw):
             rcvr = email_addr
             sbjct = "Event Details for Coders Cup 2025"
 
-            if not sendConfirmation(rcvr,sbjct, html):
+            if not sendConfirmation(rcvr, mem1, mem2, sbjct, html):
                 failed_records.append(team)
                 print(f"[!] Error sending email to {rcvr}")
                 logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
