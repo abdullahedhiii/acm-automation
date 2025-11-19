@@ -7,7 +7,7 @@ def get_html_content(template_path, params):
 
     return html_content
 
-def get_event_content(template_path, params, comp, rules, attw):
+def get_event_content(template_path, params, rules):
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
 
@@ -27,7 +27,13 @@ def get_event_content(template_path, params, comp, rules, attw):
           '''
   
     # Replace placeholders with actual values
-    html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, venue=params["Venue"], date="November 13", time=params["Contest Time"], att_code=params["att_code"],Vjudgeusername=params["Vjudge username"], rule_book=rules, attendance_website=attw)
+    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, venue=params["Venue"], date="Thursday, November 20, 2025", time=params["Time"], att_code=params["att_code"], rule_book=rules, attendance_website=attw)
+    html_content = template.format(teamname=params["Team Name"],table = table_content, venue="Library", date="Thursday, November 20, 2025", time="9:00 AM - 12:00 PM",rule_book=rules) #final
+    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, Venue1=params["Venue 1"], Venue2 = params["Venue 2"],Time1 = params["Time 1"],Time2 = params["Time 2"],  date="Wednesday, November 19, 2025", att_code=params["att_code"], rule_book=rules, attendance_website=attw)
+    # html_content = template.format(teamname=params["Team Name"],username=params["Leader Email Address"], password=params["Password"])
+    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content) #hackathon
+    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, leader=params["Leader Name"]) #coders tank
+
 
     return html_content
 

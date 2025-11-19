@@ -129,10 +129,10 @@ def insertintodb(document):
 
 
 def main():
-    # data = readfromcsv(csv_path)
-    # insertintodb(data)
+    data = readfromcsv(csv_path)
+    insertintodb(data)
     # email(data)
-    add_or_update()
+    # add_or_update()
 
 if __name__ == "__main__":
     main()

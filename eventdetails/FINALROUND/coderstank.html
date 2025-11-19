@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Team Credentials - Coders Cup’25</title>
+  <title>Coders Tank - Bidding Round</title>
   <style>
     @media only screen and (max-width: 600px) {{
       .container {{
@@ -22,6 +22,13 @@
         font-size: 14px !important;
         line-height: 1.6 !important;
       }}
+      .house-logos-container {{
+        gap: 10px !important;
+      }}
+      .house-card {{
+        padding: 15px !important;
+        font-size: 12px !important;
+      }}
     }}
   </style>
 </head>
@@ -29,7 +36,7 @@
 <body style="margin:0; padding:0; background-color:#ffffff; font-family:Arial, sans-serif; font-size: small;">
 
   <!-- Outer Wrapper -->
-  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#ffffff">
+  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="center" valign="top" style="padding:10px 0;">
 
@@ -49,7 +56,7 @@
                   <!-- Center Title -->
                   <td align="center" valign="middle" style="width:50%; padding:5px;">
                     <h1 class="main-title" style="margin:0; font-size:36px; color:#930000; font-weight:bold; font-family:Arial, sans-serif;">
-                      Coder's Cup 2025
+                      Coders Tank 2025
                     </h1>
                   </td>
 
@@ -63,79 +70,54 @@
           </tr>
 
           <!-- Body -->
-          <tr>
+            <tr>
             <td style="border-top:1px solid #930000; padding-top: 40px; padding:20px; text-align:left;">
-              <div class="content" style="font-size:14px; line-height:1.8; color:#000;">
+              <div class="content" style="font-size:16px; line-height:1.8; color:#000;">
                 
                 <p style="margin:0 0 20px 0;">
                   <strong style="font-size:20px;">Hi {teamname},</strong>
                 </p>
 
                 <p style="margin: 0 0 20px 0;">
-                    Please find below all the relevant information and resources for the event including your <strong>event details</strong>, <strong>competition rules</strong>, and link to the <strong>attendance portal</strong>. Kindly ignore any previous email that contained incomplete information.
+                  We are thrilled to inform you that your team has successfully qualified for the <strong>Final Round</strong> of the <strong>Competitive Programming</strong> event in the Coder's Cup 2025. Congratulations on achieving this milestone!
                 </p>
+
+                <p style="margin: 0 0 20px 0;">
+                   You will now be advancing to the next phase of the competition: <strong>CODERS TANK</strong>. 
+                </p>
+
+                <p style="margin: 0 0 20px 0;">
+                  
+                  In this stage, our House Captains — <strong>Dragon Warrior</strong>, <strong>Lord Shen</strong>, <strong>Tai Lung</strong>, and <strong>Master Oogway</strong> — will enter the arena to bid on the qualified teams as they form their respective Houses. Each captain will place a bid on your team, and the highest valid bid will secure your placement within that House.
+                
+                </p>
+
+                
 
                 <!-- Credentials Box -->
                 <div style="background-color:#400000e1; border:3px solid #2920004e; border-radius:8px; padding:15px; margin:20px 0; color:#ffffff;">
                     <p style="margin:5px 0; color:#F0C93D;"><strong>Team Details: </strong></p>
+                    <span style="font-weight: bold;font-size:16px;">Team Name: <span style="font-weight: normal;">{teamname}</span></span>
                     <div style="font-size:16px; font-weight: bold;">{table}</div>
                     <br>
                     <p style="margin:5px 0; color:#F0C93D;"><strong>Event Details: </strong></p>
                     <div style="font-size:16px; font-weight: bold;">
-                        <span>Venue: <span style="font-weight: normal;">{venue}</span></span>
+                        <span>Venue: <span style="font-weight: normal;">S2 (CS-Building)</span></span>
                         <br>
-                        <span>Date: <span style="font-weight: normal;">{date}</span></span>
+                        <span>Date: <span style="font-weight: normal;">Tuesday, November 18, 2025</span></span>
                         <br>
-                        <span>Time: <span style="font-weight: normal;">{time}</span></span>
+                        <span>Time: <span style="font-weight: normal;">9:00 AM - 12:00 PM</span></span>
                         <br>
-                        <span>Attendance Code: <span style="font-weight: normal;">{att_code}</span></span>
 
                     </div>
                 </div>
-
-                <p style="margin:0 0 20px 0;" >
-                <strong>Important Instructions:</strong>
-                <ul>
-                    <li>Reach the venue 20–30 minutes before the contest starts.</li>
-                    <li>Ensure that internet connectivity, equipment, and required compilers/interpreters are set up properly.</li>
-                    <li>All team members must be present to mark attendance. Certificates will only be awarded if team attendance is recorded.</li>
-                    <li>Keep your University ID cards for verification.</li>
-                    <li>In order to mark your attendance, visit the attendance portal using the link provided below and enter the attendance code provided in this email.</li>
-                </ul>
-                </p>
-
                 <p style="margin:0 0 20px 0;">
-                <strong>Rules and Regulations:</strong>
-                
-                <ul>
-                  <li>Once the contest begins, no participant will be allowed to enter.</li>
-                  <li>Leaving the lab during the contest means you will not be allowed back in.</li>
-                  <li>Ensure you have access to your VJudge account (the same one used during registration).</li>
-                  <li>Use of the internet or any AI tools is strictly prohibited and will result in immediate disqualification.</li>
-                </ul>
+                  We look forward to seeing you there. Wishing your team an exciting experience ahead!
                 </p>
-
-                
-                <div style="margin:0 0 20px 0;">
-                    <h3 style="margin: 0 0 15px 0;">Important Links:</h3>
-                    <div style="margin: 0  15px 0;">
-                            📄 Competition Rulebook: <a href={rule_book}>Open Link</a><br>
-                            📄 Attendance Portal: <a href={attendance_website}>Open Link</a><br>
-                    </div>
-                </div>
-                <p style="margin:0 0 20px 0;">
-                   You are now all set to compete in the <strong>{competitionname}</strong> event. We are excited to have you on board and look forward to an exhilarating day filled with innovation and creativity.
-                </p>
-                <!-- <p style="margin:0;">
-                  The competition begins on <strong>Monday, 10th November 2025</strong>.
-                  You will receive further instructions, including your specific venue, date, and time details, via email.
-                </p> -->
-                <!-- <br/> -->
-               
               </div>
             </td>
+            
           </tr>
-
           <!-- Footer -->
           <tr>
             <td style="border-top:1px solid #930000; padding:20px; text-align:center;">
