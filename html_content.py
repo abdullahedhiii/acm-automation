@@ -1,3 +1,5 @@
+#scripts for fetching html contents for emails/images
+
 def get_html_content(template_path, params):
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
@@ -187,3 +189,5 @@ def get_image_content(name, position, team, date, image_path):
     </html>
     """
     return html
+
+

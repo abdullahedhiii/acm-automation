@@ -10,7 +10,7 @@ import os
 
 # csv_path = "./Competitive Programming Registrations - (Nov 11 - 2 15 pm).csv"
 csv_path = easygui.fileopenbox(title="Select CSV file with participant details", filetypes=["*.csv"])
-# template_path = "./emailtemp.html"
+template_path = "./emailtemp.html"
 
 load_dotenv()
 
@@ -28,9 +28,10 @@ def readfromcsv(csv_path):
         for lines in csvFile:
             lines["Att Code"] = generateCode()
             # lines["Att Code"] = "cc-10000" #DUMMY CODE FOR TESTING
-            lines["Attendance Marked"] = False
+            # lines["Attendance Marked"] = False
+            lines["Attendance Marked"] = True
             data.append(lines)
-            print(lines["Leader Email Address"])
+            print(lines["Leader Email Address"], lines["Att Code"])
     return data
 
 def add_or_update():
@@ -103,35 +104,50 @@ def insertintodb(document):
     print(f"Inserted document ids: {inserted_documents.inserted_ids}, Last Code: {document[-1]['Att Code']}")
     client.close()
 
-# def email(data):
-#     failed_records = []
-#     logfile = open("processlogs.log", "a"); 
-#     for team in data: 
-#         try:
-#             html = get_confirmation_content(template_path, team, "Competitive Programming")
-#             rcvr = team["Leader Email Address"]
-#             sbjct = "Registration Confirmation for Coders Cup 2025"
+def email(data):
+    failed_records = []
+    logfile = open("processlogs.log", "a"); 
+    for team in data: 
+        try:
+            html = get_confirmation_content(template_path, team, "Competitive Programming")
+            rcvr = team["Leader Email Address"]
+            sbjct = "Registration Confirmation for Coders Cup 2025"
             
-#             if not sendConfirmation(rcvr, sbjct, html): 
-#                 failed_records.append(team)
-#                 print(f"[!] Error sending email to {rcvr}")
-#                 logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
-#             else:
-#                 print(f"[+] Email sent to {rcvr}")
-#                 logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
-#         except Exception as e:
-#             print(f"[!] Error processing email for {rcvr}: {e}")
-#             logfile.write(f"{datetime.now()} : [!] Error processing email for {rcvr}: {e}\n")
-#             failed_records.append(team)
-#     logfile.close()
-#     if failed_records:
-#         writetocsv(failed_records)
+            if not sendConfirmation(rcvr, sbjct, html): 
+                failed_records.append(team)
+                print(f"[!] Error sending email to {rcvr}")
+                logfile.write(f"{datetime.now()} : Couldn't send email to {rcvr}\n")
+            else:
+                print(f"[+] Email sent to {rcvr}")
+                logfile.write(f"{datetime.now()} : Email sent to {rcvr}\n")
+        except Exception as e:
+            print(f"[!] Error processing email for {rcvr}: {e}")
+            logfile.write(f"{datetime.now()} : [!] Error processing email for {rcvr}: {e}\n")
+            failed_records.append(team)
+    logfile.close()
+    if failed_records:
+        writetocsv(failed_records)
+
+def delete():
+    for i in range(711, 1084):
+        code = str(int(i) + 1).zfill(5)
+        new_code = "CC-" + code
+        client = MongoClient(mongo_uri)
+        db = client["CodersCup"]  # adjust DB name if different
+        collection = db["CodersCupAttendance"]
+        res = collection.find({"Att Code":new_code})
+        print(list(res))
+        res = collection.delete_one({"Att Code":new_code}) 
+        print(res.deleted_count)
+        client.close()
+
 
 
 def main():
     data = readfromcsv(csv_path)
-    insertintodb(data)
-    # email(data)
+    # insertintodb(data)
+    # delete()
+    email(data)
     # add_or_update()
 
 if __name__ == "__main__":

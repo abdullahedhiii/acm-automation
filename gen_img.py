@@ -1,3 +1,6 @@
+# python script for generating appointment letter (png)
+
+
 import imgkit 
 from html_content import get_image_content
 import datetime as dt
@@ -13,4 +16,4 @@ def generate(name, position, team):
     html = get_image_content(name, position, team, date, img)
     imgkit.from_string(html, "./images/final.png", config=config, options=options)
 
-generate("Musab", "Co Head", "Automations")
+generate("Musab Ali", "Co-Head", "Automations")

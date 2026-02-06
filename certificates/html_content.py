@@ -1,40 +1,33 @@
-def get_html_content(template_path, params):
+def get_html_content(template_path, name, comp):
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
 
     # Replace placeholders with actual values
-    html_content = template.format(name=params["name"], position=params["position"], team=params["team"])
+    html_content = template.format(participant_name=name, competition_name=comp)
 
     return html_content
 
-def get_event_content(template_path, params, rules):
+def get_confirmation_content(template_path, params, comp):
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
 
     table_content = f'''
-                <span>Team Lead: <span style="font-weight: normal">{params["Leader Name"]}</span></span>
-                <br>
-          '''
-    if params["Member 1 Name"] != "":
+            <div style="background-color:#400000e1; border:3px solid #2920004e; border-radius:8px; padding:15px 20px; margin-top:20px;">
+                <p style="margin:5px 0; color:#F0C93D;"><strong>Member 1:</strong> <span style="color:#FFFFFF;">{params["LeaderName"]}</span></p>
+            </div>'''
+    if params["Member1Name"] != "":
         table_content += f'''
-              <span>Member 1: <span style="font-weight: normal">{params["Member 1 Name"]}</span></span>
-              <br>
-        '''
-    if params["Member 2 Name"] != "":
+          <div style="background-color:#400000e1; border:3px solid #2920004e; border-radius:8px; padding:15px 20px; margin-top:20px;">
+              <p style="margin:5px 0; color:#F0C93D;"><strong>Member 1:</strong> <span style="color:#FFFFFF;">{params["Member1Name"]}</span></p>
+          </div>'''
+    if params["Member2Name"] != "":
         table_content += f'''
-          <span>Member 2: <span style="font-weight: normal">{params["Member 2 Name"]}</span></span>
-          <br>
-          '''
+          <div style="background-color:#400000e1; border:3px solid #2920004e; border-radius:8px; padding:15px 20px; margin-top:20px;">
+              <p style="margin:5px 0; color:#F0C93D;"><strong>Member 2:</strong> <span style="color:#FFFFFF;">{params["Member2Name"]}</span></p>
+          </div>'''
   
     # Replace placeholders with actual values
-    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, venue=params["Venue"], date="Thursday, November 20, 2025", time=params["Time"], att_code=params["att_code"], rule_book=rules, attendance_website=attw)
-    # html_content = template.format(teamname=params["Team Name"], table = table_content, venue="Library", date="Thursday, November 20, 2025", time="9:00 AM - 12:00 PM",rule_book=rules) #final
-    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, Venue1=params["Venue 1"], Venue2 = params["Venue 2"],Time1 = params["Time 1"],Time2 = params["Time 2"],  date="Wednesday, November 19, 2025", att_code=params["att_code"], rule_book=rules, attendance_website=attw)
-    # html_content = template.format(teamname=params["Team Name"], username=params["Leader Email Address"], password=params["Password"])
-    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content) #hackathon
-    # html_content = template.format(teamname=params["Team Name"], competitionname = comp, table = table_content, leader=params["Leader Name"]) #coders tank
-    html_content= template.format(teamname = params["Team Name"]) #closing
-
+    html_content = template.format(teamname=params["TeamName"], competitionname = comp, table = table_content)
 
     return html_content
 
@@ -194,3 +187,5 @@ def get_image_content(name, position, team, date, image_path):
     </html>
     """
     return html
+
+
